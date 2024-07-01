@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="/css/admin/addRecipeToCook.css?v=3" />
+    <title>Nuova Ricetta</title>
+</head>
+<body>
+	
+	<form th:action="@{/admin/addRecipeToCook}" method="POST" th:object="${recipe}" enctype="multipart/form-data">
+		
+		<div class="recipe-box">
+			<div class="recipe-header">
+			<h1>Nuova Ricetta</h1>
+			</div>
+			<div><input type="hidden" name="cookId" th:value="${cook.id}"></div>
+			<div class="recipe-error" 
+			th:if="${#fields.hasGlobalErrors()}">
+				<p class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+			</div>
+			
+			
+			
+	        <div class="recipe-input">
+	            <input class="input-field" type="text" placeholder="nome ricetta..." required th:field="${recipe.name}" />
+	             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+	        </div>
+	        <div class="recipe-input">
+	            <input class="input-field" type="text" placeholder="breve descrizione..." th:field="${recipe.description}" />
+	        </div>
+	         <div class="recipe-input">
+	            <input class="input-image" type="file" placeholder="immagine" name="immagine"/>
+	        </div>
+	        <select id="type" name="type" th:value="${recipe.type}" required>
+				<option value="" disabled selected>Seleziona tipologia di Ricetta</option>
+				<option class="option" value="antipasto">antipasto</option>
+				<option class="option" value="primo">primo</option>
+				<option class="option" value="secondo">secondo</option>
+				<option class="option" value="dolce">dolce</option>
+			</select>
+	        <div class="input-submit">
+	            <button class="submit-btn" id="submit"></button>
+	            <label for="submit">Conferma</label>
+	       </div>
+       </div>
+    </form>
+      
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

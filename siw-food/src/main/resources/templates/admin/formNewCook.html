@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="stylesheet" href="/css/admin/formNewCook.css?v=5.2" />
+    <title>Nuovo Cuoco</title>
+</head>
+<body>
+	
+	<form th:action="@{/cook}" method="POST" th:object="${cook}" enctype="multipart/form-data" >
+		
+		<div class="cook-box">
+			<div class="cook-header">
+			<h1>Nuovo Cuoco</h1>
+		</div>
+			<div class="cook-error" 
+			th:if="${#fields.hasGlobalErrors()}">
+				<p class="error" th:each="err : ${#fields.globalErrors()}" th:text="${err}">...</p>
+			</div>
+		
+	        <div class="cook-input">
+	            <input class="input-field" type="text" placeholder="nome..." required th:field="${cook.name}" />
+	             <span th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+	        </div>
+	        <div class="cook-input">
+	            <input class="input-field" type="text" placeholder="cognome..." required th:field="${cook.surname}" />
+	            <span th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}"></span>
+	        </div>
+	         <div class="cook-input">
+	            <input class="input-field" type="date" placeholder="data di nascita" th:field="${cook.birth}" />
+	            <span th:if="${#fields.hasErrors('birth')}" th:errors="*{birth}"></span>
+	        </div>
+	         <div class="cook-input">
+	            <input class="input-image" type="file" placeholder="immagine" name="immagine" />
+	        </div>
+	        <div class="input-submit">
+	            <button class="submit-btn" id="submit"></button>
+	            <label for="submit">Conferma</label>
+	       </div>
+       </div>
+    </form>
+      
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title> Elenco Ricette</title>
+	<link rel="stylesheet" href="/css/recipes.css?v=3.2" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;1,900&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+</head>
+
+<body>
+
+	<section class="header">
+
+		<a href="/"><img src="/images/logo.png"></a>
+		<form th:action="@{/formSearchRecipe}" method="post">
+			<div class="search">
+				<span class="material-symbols-outlined">search</span>
+				<input class="search-input" type="search" id="name" th:value="${name}" name="name"
+					placeholder="cerca Ricetta..." />
+				<a href="/recipe">
+					<span class="material-symbols-outlined">
+						arrow_back</span>
+				</a>
+			</div>
+		</form>
+	</section>
+
+	<section class="recipes">
+		<h1> Ricette</h1>
+		<div class="formByType">
+			<i class="fa fa-filter" id="filter" onclick="showForm()"></i>
+			<div class="searchByType" id="type">
+				<i class="fa fa-times" id="close" onclick="hideForm()"></i>
+				<form th:action="@{/formSearchRecipeByType}" method="post">
+					<select id="type" name="type" th:value="${type}" required>
+						<option value="" disabled selected>Cerca per Tipologia di Ricetta</option>
+						<option class="option" value="antipasto">antipasto</option>
+						<option class="option" value="primo">primo</option>
+						<option class="option" value="secondo">secondo</option>
+						<option class="option" value="dolce">dolce</option>
+					</select>
+					<button class="submit-btn" id="submit"><i class="fa fa-check"></i></button>
+
+					<a href="/recipe">
+						<span class="material-symbols-outlined">
+							arrow_back</span>
+					</a>
+				</form>
+			</div>
+		</div>
+		<div class="noRecipe" th:if="${recipes.isEmpty()}">
+			<span class="material-symbols-outlined">Error</span>
+			<p>Spiacenti nessuna Ricetta trovata</p>
+		</div>
+
+		<ul class="container">
+			<li class="boxRecipe" th:each="recipe : ${recipes}">
+				<img class="recipeImage" th:src="@{/images/__${recipe.urlImage}__}">
+				<a th:href="@{'/recipe' + '/' + ${recipe.id}}" th:text="${recipe.name}">Nome Ricetta</a>
+			</li>
+
+		</ul>
+	</section>
+
+
+
+
+</body>
+
+	<script>
+		var type=document.getElementById("type");
+		
+		
+		function showForm(){
+			
+				type.style.right="0";
+		}
+		 function hideForm(){
+		  type.style.right= "-500px";
+	  }
+		
+		
+	</script>
+
+
+</html>

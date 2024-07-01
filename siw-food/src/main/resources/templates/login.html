@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/login.css">
+    <title>SiwFood-Login</title>
+</head>
+<body>
+	
+	<form th:action="@{/login}", method="POST">
+    <div class="login-box">
+        <div class="login-header">
+            <header>Accedi</header>
+        </div>
+        <div class="input-box">
+            <input type="text" name="username" class="input-field" placeholder="Username" autocomplete="off" required>
+        </div>
+        <div class="input-box">
+            <input type="password" name="password" class="input-field" placeholder="Password" autocomplete="off" required>
+        </div>
+        <div class="input-submit">
+            <button class="submit-btn" id="submit"></button>
+            <label for="submit">Entra</label>
+         </form>
+        </div>
+        <div class="sign-up-link">
+            <p>Non hai un account? <a href="/register">Registrati</a></p>
+        </div>
+    </div>
+  
+</body>
+</html>

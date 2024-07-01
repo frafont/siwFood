@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		 <meta charset="utf-8" />
+    	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title> Elenco Ricette</title>
+		<link rel="stylesheet" href="/css/cookUser/ingredients.css?v=3.2" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;1,900&display=swap" rel="stylesheet">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+		
+	</head>
+	
+	<body>
+		
+		<section class="header">
+		
+			<a href="/"><img src="/images/logo.png"></a>
+			<h1> Dispensa Degli Ingredienti</h1>
+			<form th:action="@{/formSearchIngredient}" method="post">
+				<div class="search">
+					<span class="material-symbols-outlined">search</span>
+					<input class="search-input" type="search" id="name" th:value="${name}" name="name" placeholder="cerca Ingrediente..."/>
+					<a href="/ingredient">
+					<span class="material-symbols-outlined">
+						arrow_back</span>
+					</a>
+				</div>
+			</form>
+			
+		</section>
+		
+		<section class="ingredients">
+			
+			    <div class="noIngredient" th:if="${ingredients.isEmpty()}">
+						<span class="material-symbols-outlined">Error</span>
+						<p>Spiacenti nessun Ingrediente trovato</p> 
+				</div>
+				<div class="addIngredient">
+					<a href="/cookUser/formNewIngredient">
+						<span class="material-symbols-outlined">add_circle</span>Aggiungi un ingrediente</a>
+				</div>
+			
+				<ul class="container">
+					<li class="boxIngredient" th:each="ingredient : ${ingredients}">
+						<img id="ingredientImage" th:src="@{/images/__${ingredient.urlImage}__}" alt="Immagine Ingrediente">
+						<p th:text="${ingredient.name}">Nome Ingrediente</p>
+					</li>
+				</ul>
+		</section>
+			
+
+	
+		
+	</body>
+	
+</html>
+

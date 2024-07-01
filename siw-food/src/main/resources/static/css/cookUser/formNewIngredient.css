@@ -1,0 +1,102 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins',sans-serif;
+}
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-image:linear-gradient(rgba(86, 89, 92, 0.7),rgba(86, 89, 92, 0.7)),
+	url(/images/formNewIngredient.jpg); 
+	background-position: center;
+	background-size: cover;
+	position: relative;
+}
+.ingredient-box{
+	background: #dfdfdf;
+	border-radius:20px;
+	box-shadow: 10px 10px 20px rgba(0, 0, 0, 0.85),
+	-10px -10px 20px rgba(0, 0, 0, 0.6);
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 500px;
+    height: 350px;
+    padding: 30px;
+}
+.ingredient-header{
+    text-align: center;
+    margin: 20px 0 40px 0;
+}
+.ingredient-error{
+	text-align: center;
+    margin: 20px 0 40px 0;
+}
+.ingredient-error .error{
+	color:red;
+	font-size: 17px;
+}
+
+.ingredient-input .input-field{
+    width: 100%;
+    height: 60px;
+    font-size: 17px;
+    padding: 0 25px;
+    margin-bottom: 15px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0px 5px 10px 1px rgba(0,0,0, 0.05);
+    outline: none;
+    transition: .3s;
+}
+
+.ingredient-input .input-image{
+	width: 100%;
+    height: 30px;
+    font-size: 17px;
+    padding: 0 10px;
+    margin-bottom: 15px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 0px 5px 10px 1px rgba(0,0,0, 0.05);
+    outline: none;
+}
+::placeholder{
+    font-weight: 500;
+    color: #222;
+}
+.input-field:focus{
+    width: 105%;
+}
+
+.input-submit{
+    position: relative;
+}
+.submit-btn{
+    width: 100%;
+    height: 60px;
+    background: #222;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: .3s;
+}
+.input-submit label{
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    color: #fff;
+    -webkit-transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+.submit-btn:hover{
+    background: #000;
+    transform: scale(1.05,1);
+}

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<title> Elenco Ingredienti</title>
+	<link rel="stylesheet" href="/css/cookUser/manageIngredients.css?v=5.2" />
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;1,900&display=swap"
+		rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet"
+		href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+
+</head>
+
+<body>
+
+	<section class="header">
+
+		<a href="/"><img src="/images/logo.png"></a>
+		<h1> Gestisci Ingredienti</h1>
+
+	</section>
+
+	<section class="recipeIngredients">
+		<h2>Lista degli Ingredienti</h2>
+		<div class="noRecipeIngredients" th:if="${recipe.ingredients.isEmpty()}">
+			<span class="material-symbols-outlined">Error</span>
+			<p>Spiacenti nessun Ingrediente presente</p>
+		</div>
+		<ul class="container">
+			<li class="boxRecipeIngredient" th:each="recipeIngredient : ${recipe.ingredients}">
+				<img th:src="@{/images/__${recipeIngredient.ing.urlImage}__}"  alt="Immagine Ingrediente">
+				<p th:text="${recipeIngredient.getIngredient().name}">Nome Ingrediente</p>
+				<div class="quantity">Quantità: 
+					<span th:if="${recipeIngredient.unit!=null}">
+					 <p th:text="${recipeIngredient.quantity}+' '+${recipeIngredient.unit}"></p>
+					</span>
+					<span th:unless="${recipeIngredient.unit!=null}">
+						Non disponibile
+					</span>
+					
+				</div>
+				<div class="options">
+					<button class="toggleFormButton">modifica</button>
+					<form class="form hidden" method="POST" th:action="@{/cookUser/updateQuantity}">
+						<input type="hidden" name="recipeIngredientId" th:value="${recipeIngredient.id}">
+						<div>
+							<input class="input" type="number" id="quantity" name="quantity"
+								th:value="${recipeIngredient.quantity}" min="0" required>
+						</div>
+						<select id="unit" name="unit" th:value="${recipeIngredient.unit}" required>
+							<option class="option" value="grammi">Grammi</option>
+							<option class="option" value="millilitri">Millilitri</option>
+						</select>
+						<div>
+							<span><button type="submit">Conferma</button></span>
+						</div>
+					</form>
+
+					<a class="remove" title="elimina"
+						th:href="@{'/cookUser/removeIngredient/' + ${recipe.id} +'/' +${recipeIngredient.id} }"><i
+							class="fa fa-trash"></i></a>
+				</div>
+
+
+			</li>
+
+		</ul>
+	</section>
+
+
+
+
+	<section class="ingredients">
+		<h2>Ingredienti Disponibili</h2>
+		<div class="noIngredients" th:if="${ingredients.isEmpty()}">
+			<span class="material-symbols-outlined">Error</span>
+			<p>Spiacenti nessun Ingrediente trovato</p>
+		</div>
+		<div class="dispensa">
+			<a href="/ingredient">
+				<i class="fa fa-hand-o-right"></i>Vai alla Dispensa</a>
+		</div>
+		<ul class="container">
+			<li class="boxIngredient" th:each="ingredient : ${ingredients}">
+				<img id="ingredientImage" th:src="@{/images/__${ingredient.urlImage}__}" alt="Immagine Ingrediente">
+				<p th:text="${ingredient.name}">Nome Ingrediente</p>
+				<a th:href="@{'/cookUser/setIngredientToRecipe/' + ${recipe.id} +'/' +${ingredient.id}}">Aggiungi alla
+					ricetta </a>
+			</li>
+		</ul>
+	</section>
+
+	</section>
+
+
+
+</body>
+<script>
+	document.addEventListener('DOMContentLoaded', (event) => {
+		console.log("DOM completamente caricato e analizzato");
+		document.querySelectorAll('.toggleFormButton').forEach(button => {
+			button.addEventListener('click', function () {
+				// Chiude tutte le form aperte
+				document.querySelectorAll('.form').forEach(form => form.classList.add('hidden'));
+
+				// Trova la form corrispondente al bottone cliccato
+				var form = this.nextElementSibling;
+				form.classList.remove('hidden');
+			});
+		});
+	});
+
+
+</script>
+
+</html>

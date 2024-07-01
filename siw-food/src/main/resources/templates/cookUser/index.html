@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>
+        SiwFood - Homepage
+    </title>
+    <link rel="stylesheet" href="/css/cookUser/index.css?v=5.2" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;1,900&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
+
+<body>
+	<section class="header">
+		<nav>
+			<a href="/"><img src="images/logo.png"></a>
+			<div class="nav-links" id="navLinks">
+				<i class="fa fa-times" onclick="hideMenu()"></i>
+				<ul>
+					<li><a href="/cookUser/manageRecipes">Le Tue Ricette</a></li>
+					<li class="dropdown">
+						<button>Profilo</button>
+						<div class="content">
+							<a  href="/ingredient">Ingredienti</a>
+							<a  href="/logout"><i><i class="fa fa-sign-out"></i></i>Esci</a>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<i class="fa fa-bars" onclick="showMenu()"></i>
+		</nav>
+		<div class="text-box">
+			<h1>Siw Food </h1>
+			<p>Scopri 	Tutte le Ricette Presenti sul Sito</p>
+			<a href="/recipe" class="hero-btn">Vai Alle Ricette</a>
+		</div>
+	</section>
+	
+	<section class="cooks">
+		
+	   <div class="cook-box">
+		  <h1> Cuochi</h1>
+		  <p> scopri i cuochi che hanno già condiviso le proprie ricette</p>
+		  <a href="/cook" class="cook-btn">	Vai Ai Cuochi</a>
+	   </div>
+		
+		
+	</section>
+	
+	
+
+	
+	
+	
+	
+	<!-- -JavaScript per Menu a Comparsa su schermi ridotti -->
+  <script>
+	  var navLinks= document.getElementById("navLinks");
+	  
+	  function showMenu(){
+		  navLinks.style.right= "0";
+	  }
+	  function hideMenu(){
+		  navLinks.style.right= "-200px";
+	  }
+  </script> 
+    
+	</body>
+</html>
