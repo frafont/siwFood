@@ -21,10 +21,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import it.uniroma3.siw.model.Cook;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Ingredient;
 import it.uniroma3.siw.model.Recipe;
 import it.uniroma3.siw.model.RecipeIngredient;
+import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.IngredientRepository;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.IngredientService;
 import it.uniroma3.siw.service.RecipeIngredientService;
@@ -40,6 +43,9 @@ public class IngredientController {
 	
 	@Autowired
 	IngredientService ingredientService;
+	
+	@Autowired
+	IngredientRepository ingredientRepository;
 
 	@Autowired
 	RecipeService recipeService;
@@ -61,8 +67,7 @@ public class IngredientController {
 
 	@PostMapping("/formSearchIngredient")
 	public String getRecipeByName(@RequestParam String name, Model model) {
-		String query = "SELECT i FROM Ingredient i WHERE LOWER(i.name) LIKE LOWER('%" + name + "%')";
-		List<Ingredient> ingredients = this.entityManager.createQuery(query, Ingredient.class).getResultList();
+	List<Ingredient> ingredients = this.ingredientRepository.findIngredients(name);
 		model.addAttribute("ingredients", ingredients);
 		return "ingredients.html";
 	}
@@ -149,6 +154,14 @@ public class IngredientController {
 	@GetMapping("cookUser/manageIngredients/{id}")
 	public String manageIngredients(@PathVariable("id") Long id, Model model) {
 		Recipe recipe = this.recipeService.findById(id);
+		UserDetails user=gc.getUser();
+		String username=user.getUsername();
+		Credentials credenziali= this.credentialsService.getCredentials(username);
+		User utenteCorrente= credenziali.getUser();
+		Cook cuocoCorrente= utenteCorrente.getCook();
+		if(recipe.getCook()!=cuocoCorrente) {
+			return "redirect:/cookUser/manageRecipes";
+		}
 		model.addAttribute("recipe", recipe);
 		List<Ingredient> ingredientiNonPresenti = new ArrayList<Ingredient>();
 		for (Ingredient ing : this.ingredientService.findAll()) {

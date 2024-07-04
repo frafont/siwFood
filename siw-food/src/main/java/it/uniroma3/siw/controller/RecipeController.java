@@ -36,6 +36,7 @@ import it.uniroma3.siw.model.Cook;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Recipe;
 import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.RecipeRepository;
 import it.uniroma3.siw.model.RecipeIngredient;
 
 
@@ -45,6 +46,8 @@ public class RecipeController {
 	private static final String UPLOAD_DIR= "C:\\Users\\39345\\Desktop\\siwFood\\siw-food\\src\\main\\resources\\static\\images";
 	
 	@Autowired RecipeService recipeService;
+	
+	@Autowired RecipeRepository recipeRepository;
 	
 	@Autowired CookService cookService;
 	
@@ -80,16 +83,14 @@ public class RecipeController {
 	
 	@PostMapping("/formSearchRecipe")
 	public String getRecipeByName(@RequestParam String name, Model model) {
-		String query="SELECT r FROM Recipe r WHERE LOWER(r.name) LIKE LOWER('%"+ name +"%')";
-		List<Recipe> recipes=this.entityManager.createQuery(query,Recipe.class).getResultList();
+		List<Recipe> recipes=this.recipeRepository.findRecipes(name);
 		model.addAttribute("recipes", recipes);
 		return "recipes.html";
 	}
 	
 	@PostMapping("/formSearchRecipeByType")
 	public String getRecipeByType(@RequestParam String type,Model model) {
-		String query="SELECT r FROM Recipe r WHERE LOWER(r.type) LIKE LOWER('%"+ type +"%')";
-		List<Recipe> recipes=this.entityManager.createQuery(query,Recipe.class).getResultList();
+		List<Recipe> recipes=this.recipeRepository.findRecipesByType(type);
 		model.addAttribute("recipes", recipes);
 		return "recipes.html";
 	}

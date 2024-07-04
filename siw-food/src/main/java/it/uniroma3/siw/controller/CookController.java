@@ -24,6 +24,7 @@ import it.uniroma3.siw.model.Cook;
 import it.uniroma3.siw.model.Credentials;
 import it.uniroma3.siw.model.Recipe;
 import it.uniroma3.siw.model.User;
+import it.uniroma3.siw.repository.CookRepository;
 import it.uniroma3.siw.service.CookService;
 import it.uniroma3.siw.service.CredentialsService;
 import it.uniroma3.siw.service.UserService;
@@ -39,6 +40,8 @@ public class CookController {
 	private static final String UPLOAD_DIR= "C:\\Users\\39345\\Desktop\\siwFood\\siw-food\\src\\main\\resources\\static\\images";
 	
 	@Autowired CookService cookService;
+	
+	@Autowired CookRepository cookRepository;
 	
 	@Autowired CookValidator cookValidator;
 	
@@ -143,8 +146,7 @@ public class CookController {
 	
 	@PostMapping("/formSearchCooks")
 	public String getCookBySurname(@RequestParam String surname, Model model) {
-		String query="SELECT c FROM Cook c WHERE LOWER(c.surname) LIKE LOWER('%"+ surname +"%')";
-		List<Cook> cooks=this.entityManager.createQuery(query,Cook.class).getResultList();
+		List<Cook> cooks=this.cookRepository.findCooks(surname);
 		model.addAttribute("cooks", cooks);
 		return "cooks.html";
 	}
