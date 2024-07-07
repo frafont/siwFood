@@ -28,6 +28,9 @@
 	            <input class="input-field" type="text" placeholder="breve descrizione..." required th:field="${recipe.description}" />
 	        </div>
 	         <div class="recipe-input">
+	            <input class="input-field" type="number" placeholder="tempo di preparazione..." required th:field="${recipe.tempo}" />
+	        </div>
+	         <div class="recipe-input">
 	            <input class="input-image" type="file" placeholder="immagine" name="immagine"/>
 	        </div>
 	        <select id="type" name="type" th:value="${recipe.type}" required>
