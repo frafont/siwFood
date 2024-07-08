@@ -62,7 +62,7 @@ public class CookController {
 	
 	@GetMapping("/cook")
 	  public String showCooks(Model model) {
-	     model.addAttribute("cooks", this.cookService.findAll());
+	    model.addAttribute("cooks", this.cookService.findAll());
 	    return "cooks.html";
 	  }
 	@GetMapping("/cook/recipes/{id}")

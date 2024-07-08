@@ -73,7 +73,7 @@ public class RecipeController {
 	
 	@GetMapping("/recipe")
 	  public String showRecipes(Model model) {
-	     model.addAttribute("recipes", this.recipeService.findAll());
+	    model.addAttribute("recipes", this.recipeService.findAll());
 	    return "recipes.html";
 	  }
 	
